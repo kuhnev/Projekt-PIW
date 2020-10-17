@@ -9,7 +9,7 @@ class Detector(ABC):
         self.face_cascade = cv2.CascadeClassifier(cascade_path)
         self.scale_factor = scale_factor
         self.min_neighbors = min_neighbors
-
+    
     @abstractmethod
     def detect_on_frame(self, frame):
         # Convert to grayscale
@@ -24,6 +24,18 @@ class Detector(ABC):
     def label_on_frame(self, frame, objects, color = (0, 255, 0)):
         for (x, y, w, h) in objects:
             cv2.rectangle(frame, (x, y), (x+w, y+h), color, 2)
+
+    def get_scale_factor(self):
+        return self.scale_factor
+
+    def get_min_neighbors(self):
+        return self.min_neighbors
+
+    def set_scale_factor(self, scale_factor):
+        self.scale_factor = scale_factor
+
+    def set_min_neighbors(self, min_neighbors):
+        self.min_neighbors = min_neighbors
 
 class FaceDetector(Detector):
     def __init__(self, scale_factor = 1.3, min_neighbors = 5, cascade_path = FACE_HAAR_CASCADE):
