@@ -1,1 +1,0 @@
-Participant #47 withdraw

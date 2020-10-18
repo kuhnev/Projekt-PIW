@@ -6,8 +6,8 @@ SMILE_HAAR_CASCADE = "./cascades/haarcascade_smile.xml"
 
 class Detector(ABC):
     def __init__(self, scale_factor, min_neighbors, cascade_path):
-        self.face_cascade = cv2.CascadeClassifier(cascade_path)
-        self.scale_factor = scale_factor
+        self.object_cascade  = cv2.CascadeClassifier(cascade_path)
+        self.scale_factor  = scale_factor
         self.min_neighbors = min_neighbors
     
     @abstractmethod
@@ -16,7 +16,7 @@ class Detector(ABC):
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Detect objects
-        objects_detected = self.face_cascade.detectMultiScale(gray_frame, self.scale_factor, self.min_neighbors)
+        objects_detected = self.object_cascade.detectMultiScale(gray_frame, self.scale_factor, self.min_neighbors)
 
         return objects_detected
 
@@ -52,7 +52,6 @@ class FaceDetector(Detector):
 
 class SmileDetector(Detector):
     def __init__(self, scale_factor = 1.8, min_neighbors = 20, cascade_path = SMILE_HAAR_CASCADE):
-        # self.face_cascade = cv2.CascadeClassifier(cascade_path)
         super().__init__(scale_factor, min_neighbors, cascade_path)
 
     def detect_on_frame(self, frame):
