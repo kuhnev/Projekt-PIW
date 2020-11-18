@@ -57,7 +57,7 @@ class App(QWidget):
         frame = np.copy(raw_frame)
 
         faces = self.face_detector.detect_on_frame(frame)
-        self.face_detector.label_on_frame(frame, faces, (0,0,255))
+        # self.face_detector.label_on_frame(frame, faces, (0,0,255))
 
         for (x, y, w, h) in faces:
             frame_face_part = frame[y:y+h, x:x+w]
